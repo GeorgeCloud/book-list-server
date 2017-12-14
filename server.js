@@ -2,14 +2,14 @@
 
 /************** NEEDED TERMINAL ENV VARIABLES *****************/
 ////////////////////// MAC //////////////////////
-//PORT=3000
-//CLIENT_URL=http://localhost:8080
-//DATABASE_URL=postgres://localhost:5432/books_app
+//export PORT=3000
+//export CLIENT_URL=http://localhost:8080
+//export DATABASE_URL=postgres://localhost:5432/books_app
 
 ////////////////////// LINUX //////////////////////
-//PORT=3000
-//CLIENT_URL=http://localhost:8080
-//DATABASE_URL=postgres://postgres:password@localhost:5432/books_app
+// export PORT=3000
+// export CLIENT_URL=http://localhost:8080
+// export DATABASE_URL=postgres://postgres:password@localhost:5432/books_app
 
 /************** IMPORT REQUIRED MODULES *****************/
 const express = require('express');
