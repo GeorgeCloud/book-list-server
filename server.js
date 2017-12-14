@@ -51,6 +51,9 @@ app.get('/api/v1/books/:id', (req, res) => {
 })
 
 /************** ASSIGN ROUTE FOR MAKING A NEW BOOK *****************/
+app.get('/about', (req, res) => res.send('ABOUT THE APP!'));
+
+/************** ASSIGN ROUTE FOR MAKING A NEW BOOK *****************/
 app.post('/api/v1/books', (request, response) => {
   client.query(
     'INSERT INTO books (title, author, isbn, image_url, description) VALUES($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING',
