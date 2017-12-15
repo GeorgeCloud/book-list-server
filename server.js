@@ -65,6 +65,25 @@ app.post('/api/v1/books', (request, response) => {
   )
 });
 
+/************** ASSIGN ROUTE FOR DELETING A BOOK *****************/
+app.delete('/api/v1/books/:id', (request, response) => {
+  client.query(`DELETE FROM books WHERE book_id=$1;`,
+    [request.params.id]
+  )
+  .then(() => response.sendStatus(204)) //Sends a no content response
+  .catch(console.error);
+});
+
+/************** ASSIGN ROUTE FOR UPDATING A BOOK *****************/
+app.put('/api/books/:id', (request, response) => {
+  client.query(`UPDATE books SET title=$1, author=$2, image_url=$3, isbn=$4, description=$5 WHERE book_id=$6;`
+    [request.body.title, request.body.author, request.body.image_url, request.body.isbn, request.body.description, request.params.id]
+  )
+    .then(() => response.sendStatus(200)) //Success status message
+    .catch(console.error);
+});
+
+
 
 
 /**************  INSERT BOOKS INTO TABLE (ALL DATA) FROM FILE IF THERE IS NO BOOK COUNT ON THE TABLE *****************/
