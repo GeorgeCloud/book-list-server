@@ -75,11 +75,21 @@ app.delete('/api/v1/books/:id', (request, response) => {
 });
 
 /************** ASSIGN ROUTE FOR UPDATING A BOOK *****************/
-app.put('/api/v1/books/:id', (request, response) => {
-  client.query(`UPDATE books SET title=$1, author=$2, image_url=$3, isbn=$4, description=$5 WHERE book_id=$6;`
-    [request.body.title, request.body.author, request.body.image_url, request.body.isbn, request.body.description, request.params.id]
+app.put('/api/v1/books', (request, response) => {
+  client.query(`
+    UPDATE books
+    SET title=$1, author=$2, image_url=$3, isbn=$4, description=$5
+    WHERE book_id=$6;`,
+    [
+      request.body.title,
+      request.body.author,
+      request.body.image_url,
+      request.body.isbn,
+      request.body.description,
+      request.body.book_id
+    ]
   )
-    .then(() => response.sendStatus(200)) //Success status message
+    .then(() => response.sendStatus(200))
     .catch(console.error);
 });
 
