@@ -51,6 +51,9 @@ app.get('/api/v1/books/:id', (req, res) => {
 })
 
 /************** ASSIGN ROUTE FOR MAKING A NEW BOOK *****************/
+app.get('/about', (req, res) => res.send('ABOUT THE APP!'));
+
+/************** ASSIGN ROUTE FOR MAKING A NEW BOOK *****************/
 app.post('/api/v1/books', (request, response) => {
   client.query(
     'INSERT INTO books (title, author, isbn, image_url, description) VALUES($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING',
@@ -61,6 +64,35 @@ app.post('/api/v1/books', (request, response) => {
     }
   )
 });
+
+/************** ASSIGN ROUTE FOR DELETING A BOOK *****************/
+app.delete('/api/v1/books/:id', (request, response) => {
+  client.query(`DELETE FROM books WHERE book_id=$1;`,
+    [request.params.id]
+  )
+  .then(() => response.sendStatus(204)) //Sends a no content response
+  .catch(console.error);
+});
+
+/************** ASSIGN ROUTE FOR UPDATING A BOOK *****************/
+app.put('/api/v1/books', (request, response) => {
+  client.query(`
+    UPDATE books
+    SET title=$1, author=$2, image_url=$3, isbn=$4, description=$5
+    WHERE book_id=$6;`,
+    [
+      request.body.title,
+      request.body.author,
+      request.body.image_url,
+      request.body.isbn,
+      request.body.description,
+      request.body.book_id
+    ]
+  )
+    .then(() => response.sendStatus(200))
+    .catch(console.error);
+});
+
 
 
 
